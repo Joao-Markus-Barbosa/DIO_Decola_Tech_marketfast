@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@OpenAPIDefinition(servers = {@Server(url="/", description = "Default Server URL")})
+
 @SpringBootApplication
 @EntityScan(basePackages = {
 		"com.marketfast.domain.cliente.model",
