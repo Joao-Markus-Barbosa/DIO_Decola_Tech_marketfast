@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@OpenAPIDefinition(servers = {@Server(url="/", description = "Default Server URL")})
 @EntityScan(basePackages = {
 		"com.marketfast.domain.cliente.model",
 		"com.marketfast.domain.pedido.model",
