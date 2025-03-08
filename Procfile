@@ -1,0 +1,1 @@
+web java -jar marketfast/gradle/wrapper/gradle-wrapper.jar

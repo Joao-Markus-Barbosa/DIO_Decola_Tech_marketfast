@@ -1,0 +1,24 @@
+# Configuração PostgreSQL
+spring:
+  datasource:
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
+    hikari:
+      connection-timeout: 30000 # 30 segundos
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+
+# Configuração Swagger (Springdoc OpenAPI)
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+
+

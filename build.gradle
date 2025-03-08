@@ -1,0 +1,59 @@
+plugins {
+	id 'org.springframework.boot' version '3.2.0'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+//sourceCompatibility = '21'
+//targetCompatibility = '21'
+//sourceCompatibility = '17'
+//targetCompatibility = '17'
+java {
+	sourceCompatibility = '17' // Define a compatibilidade do código-fonte para Java 17
+	targetCompatibility = '17' // Define a compatibilidade do bytecode para Java 17
+}
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot Starters
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+	// Spring Security
+	implementation 'org.springframework.security:spring-security-crypto:5.8.1'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.30'
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+	// Banco de dados
+	runtimeOnly 'com.h2database:h2'
+	implementation 'org.postgresql:postgresql'
+
+	// DevTools (para desenvolvimento)
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Testes
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+}
+
+tasks.jar {
+	manifest {
+		attributes["Main-Class"] = "com.marketfast.MarketfastApplication"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
