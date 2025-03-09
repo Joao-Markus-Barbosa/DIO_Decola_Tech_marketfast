@@ -1,7 +1,5 @@
 package com.marketfast.domain.cliente.controller;
 
-
-
 import com.marketfast.domain.cliente.dto.ClienteRequest;
 import com.marketfast.domain.cliente.dto.ClienteResponse;
 import com.marketfast.domain.cliente.model.Cliente;
@@ -55,5 +53,14 @@ public class ClienteController {
     public ResponseEntity<Void> excluirCliente(@PathVariable @Parameter(description = "ID do cliente a ser excluído") Long id) {
         clienteService.excluirCliente(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Novo endpoint para buscar cliente por ID
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar cliente por ID", description = "Retorna os dados de um cliente com base no ID fornecido.")
+    public ResponseEntity<ClienteResponse> buscarClientePorId(
+            @PathVariable @Parameter(description = "ID do cliente a ser buscado") Long id) {
+        ClienteResponse response = clienteService.buscarClientePorId(id);
+        return ResponseEntity.ok(response);
     }
 }

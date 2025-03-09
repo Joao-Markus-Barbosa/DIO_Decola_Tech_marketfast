@@ -59,4 +59,11 @@ public class ClienteService {
         }
         clienteRepository.deleteById(id);
     }
+
+    // Método para buscar cliente por ID
+    public ClienteResponse buscarClientePorId(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o ID: " + id));
+        return new ClienteResponse(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getCategoria().toString());
+    }
 }

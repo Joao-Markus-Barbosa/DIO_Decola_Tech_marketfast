@@ -5,9 +5,7 @@ import com.marketfast.domain.produto.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.validation.ValidationException;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.NoSuchElementException;
 
 @Service
@@ -16,15 +14,18 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    // Listar todos os produtos
     public List<Produto> listarTodos() {
         return produtoRepository.findAll();
     }
 
+    // Buscar produto por ID
     public Produto buscarPorId(Long id) {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Produto não encontrado com id: " + id));
     }
 
+    // Salvar um novo produto
     public Produto salvar(Produto produto) {
         // Validando se o produto tem informações mínimas válidas
         if (produto.getNome() == null || produto.getNome().isEmpty()) {
@@ -37,14 +38,16 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
+    // Deletar produto por ID
     public void deletar(Long id) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Produto não encontrado com id: " + id));
         produtoRepository.delete(produto);
     }
 
-    // Atualizando produto
+    // Atualizar produto por ID
     public Produto atualizar(Long id, Produto produtoAtualizado) {
+        // Busca o produto existente no banco de dados
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Produto não encontrado com id: " + id));
 
@@ -65,4 +68,3 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 }
-

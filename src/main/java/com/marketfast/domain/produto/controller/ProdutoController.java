@@ -6,11 +6,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -49,6 +49,22 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
     }
 
+    // Atualizar produto por ID
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar produto por ID", description = "Atualiza as informações de um produto existente com o ID fornecido.")
+    public ResponseEntity<Produto> atualizarProduto(
+            @PathVariable @Parameter(description = "ID do produto a ser atualizado") Long id,
+            @Valid @RequestBody @Parameter(description = "Novos dados do produto") Produto produtoAtualizado) {
+        try {
+            Produto produto = produtoService.atualizar(id, produtoAtualizado);
+            return ResponseEntity.ok(produto);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (ValidationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
     // Deletar produto por ID
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletar produto por ID", description = "Exclui um produto do sistema com o ID fornecido.")
@@ -61,4 +77,3 @@ public class ProdutoController {
         }
     }
 }
-
